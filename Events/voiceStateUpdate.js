@@ -158,7 +158,6 @@ module.exports = {
 
       if (!TEMP.panelVoiceId || !TEMP.categoryId) return;
 
-      // Panel kanalına girince oda aç
       if (newState.channelId === TEMP.panelVoiceId) {
         const now = Date.now();
         const last = client._tempCooldown.get(member.id) || 0;
@@ -246,7 +245,6 @@ module.exports = {
         return;
       }
 
-      // Odadan çıkınca boşsa sil
       const leftChannel = oldState.channel;
       if (!leftChannel) return;
 
@@ -277,3 +275,4 @@ module.exports = {
   },
 
 };
+
