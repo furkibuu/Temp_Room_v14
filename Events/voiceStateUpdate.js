@@ -168,7 +168,6 @@ module.exports = {
         }
         client._tempCooldown.set(member.id, now);
 
-        // Tek oda limiti
         if (client.db?.get) {
           const existingVoiceId = await client.db.get(`tempRoomsByOwner.${guild.id}.${member.id}`);
           if (existingVoiceId) {
@@ -235,8 +234,7 @@ module.exports = {
         if (msg) room.panelMessageId = msg.id;
 
         await setRoom(client, guild.id, room);
-
-        // index'e ekle
+        
         if (client.db?.get && client.db?.set) {
           const k = `tempRoomsIndex.${guild.id}`;
           const list = (await client.db.get(k)) || [];
@@ -263,7 +261,6 @@ module.exports = {
 
           if (voice) await voice.delete().catch(() => {});
 
-          // index'ten çıkar
           if (client.db?.get && client.db?.set) {
             const k = `tempRoomsIndex.${guild.id}`;
             const list = (await client.db.get(k)) || [];
@@ -278,4 +275,5 @@ module.exports = {
       console.error("voiceStateUpdate error:", err);
     }
   },
+
 };
