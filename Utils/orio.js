@@ -1,15 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-/**
- * Basit OrioDB (JSON tabanlı) provider
- * - Mongo yerine hızlı kurulum isteyenler için.
- * - API: get / set / delete / has / push / pull / add / sub
- *
- * Kullanım:
- *   const db = require("./Utils/orio")({ fileName: "orio.json" })
- *   await db.set(`rooms.${guildId}.${userId}`, { channelId: "123" })
- */
+
 
 function ensureDir(dirPath) {
   if (!fs.existsSync(dirPath)) fs.mkdirSync(dirPath, { recursive: true });
@@ -153,4 +145,5 @@ module.exports = function createOrioDB(options = {}) {
   };
 
   return db;
+
 };
