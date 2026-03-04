@@ -241,14 +241,12 @@ if (!interaction.customId.startsWith("devstatus:")) return;
         }
 
         if (action === "claim") {
-          // claim: owner odada değilse ve allowClaim true ise
           const allowClaim = true;
           const ownerInRoom = voice.members.has(room.ownerId);
           if (ownerInRoom) return safeReply(interaction, { content: "ℹ️ Oda sahibi odada. Claim yapılamaz.", ephemeral: true });
 
           room.ownerId = interaction.user.id;
 
-          // yeni owner yetkileri
           await voice.permissionOverwrites.edit(interaction.user.id, {
             ViewChannel: true,
             Connect: true,
@@ -298,7 +296,6 @@ if (!interaction.customId.startsWith("devstatus:")) return;
         return safeReply(interaction, { content: "❓ Bilinmeyen işlem.", ephemeral: true });
       }
 
-      // USER SELECT MENUS (permit/reject/transfer/ban)
       if (interaction.isUserSelectMenu()) {
         if (!interaction.customId.startsWith("devcode:room:")) return;
 
@@ -325,7 +322,7 @@ if (!interaction.customId.startsWith("devstatus:")) return;
         }
 
         if (interaction.customId === "devcode:room:transferSelect") {
-          // eski owner manage kaldır (istersen kalsın)
+  
           const oldOwner = room.ownerId;
           room.ownerId = userId;
 
@@ -361,7 +358,6 @@ if (!interaction.customId.startsWith("devstatus:")) return;
         }
       }
 
-      // STRING SELECT MENUS (kick/unban)
       if (interaction.isStringSelectMenu()) {
         const room = await getRoom(client, interaction);
         if (!room) return safeReply(interaction, { content: "❌ Bu panel bir odaya bağlı değil.", ephemeral: true });
@@ -393,7 +389,6 @@ if (!interaction.customId.startsWith("devstatus:")) return;
         }
       }
 
-      // MODALS (limit/rename)
       if (interaction.isModalSubmit()) {
         if (!interaction.customId.startsWith("devcode:room:")) return;
 
@@ -440,4 +435,5 @@ if (!interaction.customId.startsWith("devstatus:")) return;
       if (interaction?.isRepliable()) await safeReply(interaction, { content: "❌ Bir hata oldu.", ephemeral: true });
     }
   },
+
 };
